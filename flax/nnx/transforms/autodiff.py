@@ -233,14 +233,15 @@ def grad(
   tp.Callable[..., tp.Any]
   | tp.Callable[[tp.Callable[..., tp.Any]], tp.Callable[..., tp.Any]]
 ):
-  """A "lifted" version of ``jax.grad`` that can handle ``nnx.Modules`` / graph nodes as
-  arguments.
+  """A "lifted" version of `jax.grad <https://jax.readthedocs.io/en/latest/_autosummary/jax.grad.html#jax.grad>`_
+  that can handle `flax.nnx.Modules <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/module.html#flax.nnx.Module>`_
+  / graph nodes as arguments.
 
   The differentiable state of each graph node is defined by the ``wrt`` filter,
-  which by default is set to ``flax.nnx.Param``. Internally the ``flax.nnx.State`` of
-  graph nodes is extracted, filtered according to ``wrt`` filter, and
-  passed to the underlying ``jax.grad`` function. The gradients
-  of graph nodes are of type ``flax.nnx.State``.
+  which by default is set to `flax.nnx.Param <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/variables.html#flax.nnx.Param>`_.
+  Internally the `flax.nnx.State <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/state.html#flax.nnx.State>`_
+  of graph nodes is extracted, filtered according to ``wrt`` filter, and
+  passed to the underlying ``jax.grad`` function. The gradients of graph nodes are of type ``flax.nnx.State``.
 
   Learn more in `Flax NNX vs JAX Transformations <https://flax.readthedocs.io/en/latest/guides/jax_and_nnx_transforms.html>`_.
 
