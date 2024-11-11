@@ -175,8 +175,8 @@ def jit(
   Learn more in `Flax NNX vs JAX Transformations <https://flax.readthedocs.io/en/latest/guides/jax_and_nnx_transforms.html>`_.
 
   Args:
-    fun: A function to be JIT-compiled. ``fun`` should be a pure function, as
-      side-effects may only be executed once.
+    fun: A function to be `JIT-compiled <https://jax.readthedocs.io/en/latest/jit-compilation.html>`_.
+      ``fun`` should be a pure function, as side-effects may only be executed once.
 
       The arguments and return value of ``fun`` should be arrays,
       scalars, or (nested) standard Python containers (tuple/list/dict) thereof.
@@ -195,8 +195,8 @@ def jit(
       that subtree.
 
       The ``in_shardings`` argument is optional. JAX will infer the shardings
-      from the input :py:class:`jax.Array`'s and defaults to replicating the input
-      if the sharding cannot be inferred.
+      from the input `jax.Arrays <https://jax.readthedocs.io/en/latest/_autosummary/jax.Array.html#jax.Array>`_
+      and defaults to replicating the input if the sharding cannot be inferred.
 
       The valid resource assignment specifications are:
         - :py:class:`Sharding`, which will decide how the value
@@ -210,12 +210,14 @@ def jit(
           determine the output shardings.
 
       The size of every dimension has to be a multiple of the total number of
-      resources assigned to it. This is similar to pjit's in_shardings.
+      resources assigned to it. This is similar to `pjit <https://jax.readthedocs.io/en/latest/jax.experimental.pjit.html>`_
+      ``in_shardings``.
     out_shardings: Similar to ``in_shardings``, but specifies resource
       assignment for function outputs. This is similar to JAX ``pjit`` 
       ``out_shardings``.
 
-      The ``out_shardings`` argument is optional. If not specified, :py:func:`jax.jit`
+      The ``out_shardings`` argument is optional. If not specified,
+      `jax.jit <https://jax.readthedocs.io/en/latest/_autosummary/jax.jit.html#jax.jit>`_
       will use GSPMD's sharding propagation to figure out what the sharding of the
       output(s) should be.
     static_argnums: An optional int or collection of ints that specify which
