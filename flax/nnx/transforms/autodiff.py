@@ -237,6 +237,8 @@ def grad(
   that can handle `flax.nnx.Modules <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/module.html#flax.nnx.Module>`_
   / graph nodes as arguments.
 
+  Creates a function that evaluates the gradient of a function ``f``.
+
   The differentiable state of each graph node is defined by the ``wrt`` filter,
   which by default is set to `flax.nnx.Param <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/variables.html#flax.nnx.Param>`_.
   Internally the `flax.nnx.State <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/state.html#flax.nnx.State>`_
@@ -271,24 +273,24 @@ def grad(
     })
 
   Args:
-    fun: A function to be differentiated. Its arguments at positions specified by
+    f: A function to be differentiated. Its arguments at positions specified by
       ``argnums`` should be arrays, scalars, graph nodes or standard Python
       containers. Argument arrays in the positions specified by ``argnums`` must
-      be of inexact (i.e., floating-point or complex) type. ``fun`` should return a
+      be of inexact (i.e., floating-point or complex) type. Function ``f`` should return a
       scalar (which includes arrays with shape ``()`` but not arrays with shape
       ``(1,)`` etc).
     argnums: Optional, integer or sequence of integers. Specifies which
       positional argument(s) to differentiate with respect to (default ``0``).
-    has_aux: Optional, bool. Indicates whether ``fun`` returns a pair where the
+    has_aux: Optional, bool. Indicates whether function ``f`` returns a pair where the
       first element is considered the output of the mathematical function to be
       differentiated and the second element is auxiliary data. Default ``False``.
-    holomorphic: Optional, bool. Indicates whether ``fun`` is promised to be
-      holomorphic. If True, inputs and outputs must be complex. Default ``False``.
+    holomorphic: Optional, bool. Indicates whether function ``f`` is promised to be
+      holomorphic. If ``True``, inputs and outputs must be complex. Default ``False``.
     allow_int: Optional, bool. Whether to allow differentiating with
       respect to integer valued inputs. The gradient of an integer input will
       have a trivial vector-space dtype (float0). Default ``False``.
     reduce_axes: Optional, tuple of axis names. If an axis is listed here, and
-      ``fun`` implicitly broadcasts a value over that axis, the backward pass
+      function ``f`` implicitly broadcasts a value over that axis, the backward pass
       will perform a ``psum`` of the corresponding gradient. Otherwise, the
       gradient will be per-example over named axes. For example, if ``'batch'``
       is a named batch axis, ``flax.nnx.grad(f, reduce_axes=('batch',))`` will create a
