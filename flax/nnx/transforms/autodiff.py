@@ -344,7 +344,7 @@ def value_and_grad(
   tp.Callable[..., tp.Any]
   | tp.Callable[[tp.Callable[..., tp.Any]], tp.Callable[..., tp.Any]]
 ):
-  """A lifted version of `jax.value_and_grad <https://jax.readthedocs.io/en/latest/_autosummary/jax.value_and_grad.html#jax.value_and_grad>`_
+  """A reference-aware version of `jax.value_and_grad <https://jax.readthedocs.io/en/latest/_autosummary/jax.value_and_grad.html#jax.value_and_grad>`_
   that can handle `flax.nnx.Modules <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/module.html#flax.nnx.Module>`_
   / graph nodes as arguments.
 
@@ -366,8 +366,9 @@ def value_and_grad(
     >>> value_and_grad_fn = nnx.value_and_grad(loss_fn)
     ...
     >>> values, grads = value_and_grad_fn(m, x, y)
-    >>> print(jax.tree.map(jnp.shape, grads))
-    >>> print(values)
+    ...
+    >>> jax.tree.map(jnp.shape, grads)
+    >>> values
     State({
       'bias': VariableState(
         type=Param,
