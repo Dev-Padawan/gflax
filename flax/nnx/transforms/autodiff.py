@@ -233,7 +233,7 @@ def grad(
   tp.Callable[..., tp.Any]
   | tp.Callable[[tp.Callable[..., tp.Any]], tp.Callable[..., tp.Any]]
 ):
-  """A "lifted" version of `jax.grad <https://jax.readthedocs.io/en/latest/_autosummary/jax.grad.html#jax.grad>`_
+  """A reference-aware version of `jax.grad <https://jax.readthedocs.io/en/latest/_autosummary/jax.grad.html#jax.grad>`_
   that can handle `flax.nnx.Modules <https://flax.readthedocs.io/en/latest/api_reference/flax.nnx/module.html#flax.nnx.Module>`_
   / graph nodes as arguments.
 
@@ -260,6 +260,7 @@ def grad(
     >>> grad_fn = nnx.grad(loss_fn)
     ...
     >>> grads = grad_fn(m, x, y)
+    ...
     >>> jax.tree.map(jnp.shape, grads)
     State({
       'bias': VariableState(
